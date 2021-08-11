@@ -48,3 +48,37 @@ def vec_magnitude(v):
 def dist_between_vectors(v, w):
     # returns the distance between the endpoints of two vectors
     return vec_magnitude(vector_subtraction(v, w))
+
+
+def tensor_shape(tensor, shape=None):
+    # creating a new array everytime the function is called and recursively calls itself to find the dimensionality
+    # of each rank of the tensor assuming each list within a container-list is of the same dimensionality
+    if shape is None:
+        shape = []
+    if type(tensor) != list:
+        return tuple(shape)
+    else:
+        shape.append(len(tensor))
+        return tensor_shape(tensor[0], shape)
+
+
+def row_of_matrix(matrix, i):
+    # returns the i-th row of the matrix
+    return matrix[i]  # matrix[i] is already the i-th row of the matrix
+
+
+def column_of_matrix(matrix, i):
+    # returns the i-th column of the matrix
+    return [matrix_row[i] for matrix_row in matrix]
+
+
+def build_matrix(shape: tuple, el_func):
+    return [[el_func(i, j) for i in range(shape[1])] for j in range(shape[0])]  # took some hints from the book
+
+
+def square_sum_of_indices(i, j):
+    return i**2 + j**2
+
+
+def identity_matrix(i, j):
+    return int(i == j)
